@@ -52,6 +52,11 @@ registered_vehicle_info = {
     "4482": 50
 }
 
+ticket_codes = {
+    "ABC": 10,
+    "DEF": 20
+}
+
 # 처음 시작 주차장 정보, 정기 등록 차량 출력을 위한 작업
 parking_lot_flag = True
 registered_vehicle_flag = True
@@ -173,5 +178,9 @@ while True:
         # 6은 주차권 등록
         case "6":
             car_num = input("Enter your car number: ")
-            # 해당 차량 번호의 주차권은 True
-            parked_vehicle_info[car_num]["parkingticket"] = True
+            code = input("Enter ticket code: ")
+            if code in ticket_codes:
+                # 해당 차량 번호의 주차권은 True
+                parked_vehicle_info[car_num]["parkingticket"] = ticket_codes[code]
+            else:
+                print("Invalid code!")
