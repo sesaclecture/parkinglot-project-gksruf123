@@ -10,10 +10,7 @@ def print_park_info():
     for i in range(MAX_FLOOR):
         print(f"{MAX_FLOOR - i}층:\t", end="")
         for j in range(10):
-            if j == 9:
-                print("[ ]" if parking_lot_info[i][j] == 0 else "[X]")
-            else:
-                print("[ ]" if parking_lot_info[i][j] == 0 else "[X]", end=" ")
+            print("[ ]" if parking_lot_info[i][j] == 0 else "[X]", end = "\n" if j == 9 else " ")
     print()
 
 # 정기 등록 차량 출력
@@ -23,17 +20,12 @@ def print_registered_vehicle_info():
 
 # 빈 주차장 자리 찾기
 def get_parking_position():
-    flag = False
-
     for i in range(MAX_FLOOR - 1, -1, -1):
         for j in range(10):
             if parking_lot_info[i][j] == 0:
-                flag = True
-                break
-        if flag:
-            break
+                return (i, j)
     
-    return (i, j)
+    return (None, None)
 
 # 주차장 정보 (0: 빔, 1: 참)
 parking_lot_info = [
@@ -85,9 +77,17 @@ while True:
         case "1":
             car_num = input("Enter your car number: ")
             # 들어온 시간 | datetime.datetime.now()는 현재 시각 (년,월,일,시간,분,초)
+
+            if car_num in parked_vehicle_info:
+                print(f"Error: {car_num} is already parked. Manager called.")
+                continue
             enter_time = datetime.datetime.now()
             # get_parking_position 1층부터 1번 자리부터 찾아서 빈 자리를 가져오는 함수
             parking_floor, parking_num = get_parking_position()
+
+            if parking_floor is None or parking_num is None:
+                print("Parking tower full!")
+                continue
 
             print(f"{MAX_FLOOR -parking_floor} floor - {parking_num + 1} is empty. I'll park your vehicle \"{MAX_FLOOR -parking_floor} floor - {parking_num + 1}\"")
 
