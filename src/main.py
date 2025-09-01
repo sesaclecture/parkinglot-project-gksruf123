@@ -10,7 +10,7 @@ def print_park_info():
     for i in range(MAX_FLOOR):
         print(f"{MAX_FLOOR - i}층:\t", end="")
         for j in range(10):
-                print("[ ]" if parking_lot_info[i][j] == 0 else "[X]", end = "\n" if j == 9 else " ")
+            print("[ ]" if parking_lot_info[i][j] == 0 else "[X]", end = "\n" if j == 9 else " ")
     print()
 
 # 정기 등록 차량 출력
